@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netwo Comunicação | Nós Somos a Sua Ideia</title>
+  <meta name="description" content="Consultoria especializada com mais de uma década de experiência em Branding e Performance.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo-symbol.png">
+
+  <!-- Google Fonts: Inter (Headings & UI) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- GSAP & ScrollTrigger CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Estilos Customizados Externos -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ========================================================================
+       CABEÇALHO / NAVBAR TOTALMENTE GLASS TRANSPARENTE
+       ======================================================================== -->
+  <header class="site-header" id="siteHeader">
+    <div class="nav-container">
+      <a href="#hero" class="logo-wrapper">
+        <img src="assets/logo-netwo.png" alt="Netwo Comunicação" class="logo-img">
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#hero" class="nav-link">Início</a></li>
+          <li><a href="#bloco-1" class="nav-link">Soluções</a></li>
+          <li><a href="#bloco-2" class="nav-link">Combos</a></li>
+          <li><a href="#diagnostico" class="nav-link">Diagnóstico</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       BANNER HERO COM VÍDEO MP4 EM LOOP (100% LIMPO NA PRIMEIRA DOBRA)
+       ======================================================================== -->
+  <section id="hero" class="hero-section">
+    <!-- Vídeo de Fundo da Lâmpada em Loop -->
+    <div class="hero-bg-container">
+      <video autoplay loop muted playsinline class="hero-bg-video" id="heroBgVideo">
+        <source src="assets/lampada-video.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- Camadas de Overlay e Glow -->
+    <div class="hero-overlay"></div>
+    <div class="hero-ambient-glow" id="heroAmbientGlow"></div>
+
+    <div class="hero-container" id="heroContainer">
+      <!-- Slogan Central -->
+      <div class="hero-slogan-wrapper">
+        <h1 class="hero-slogan">
+          NÓS SOMOS <span class="slogan-highlight">A SUA IDEIA</span>
+        </h1>
+      </div>
+
+      <!-- Subtítulo de Autoridade -->
+      <p class="hero-subtitle">
+        Consultoria especializada com <strong>mais de uma década de experiência</strong> em <strong>Branding</strong> e <strong>Performance</strong>.
+      </p>
+
+      <!-- Botões de Ação com Ícones -->
+      <div class="hero-actions">
+        <a href="#bloco-1" class="btn-primary">
+          <span class="btn-icon-wrapper">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#050811" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </span>
+          <span>Solicitar Diagnóstico</span>
+        </a>
+
+        <a href="https://api.whatsapp.com/send?phone=5585987978486&text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Netwo." target="_blank" class="btn-secondary">
+          <span class="btn-icon-wrapper">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366">
+              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+            </svg>
+          </span>
+          <span>WhatsApp Direto</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Indicador de Scroll (Apenas Ícone do Mouse) -->
+    <a href="#bloco-1" class="scroll-indicator" aria-label="Rolar para os serviços">
+      <div class="mouse-icon">
+        <div class="mouse-wheel"></div>
+      </div>
+    </a>
+  </section>
+
+  <!-- ========================================================================
+       BLOCO 1: LADO A (SOLUÇÕES) E LADO B (FORMULÁRIO)
+       ======================================================================== -->
+  <section id="bloco-1" class="split-section">
+    <div class="split-container">
+      
+      <!-- LADO A: TEXTOS DAS SOLUÇÕES + 4 CARDS EM GRID 2x2 -->
+      <div class="services-col">
+        <div class="section-tag">
+          <div class="section-tag-dot"></div>
+          <span>NOSSAS SOLUÇÕES</span>
+        </div>
+        
+        <h2 class="services-title">
+          Estratégia e execução para <span>escalar seu faturamento</span>
+        </h2>
+        
+        <p class="services-description">
+          Combinamos a precisão do design com a força do tráfego para posicionar seu negócio como autoridade e gerar demanda qualificada todos os dias.
+        </p>
+
+        <!-- Grid 2x2 dos 4 Cards -->
+        <div class="services-grid">
+          
+          <!-- Serviço 1: Branding Estratégico -->
+          <div class="service-card">
+            <div class="service-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                <path d="M2 12h20"></path>
+              </svg>
+            </div>
+            <h3 class="service-name">Branding Estratégico</h3>
+            <p class="service-text">
+              Construção de identidade visual memorável e posicionamento premium que gera valor imediato.
+            </p>
+            <span class="service-badge">★ Autoridade & Diferenciação</span>
+          </div>
+
+          <!-- Serviço 2: Tráfego Pago -->
+          <div class="service-card">
+            <div class="service-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="20" x2="12" y2="10"></line>
+                <line x1="18" y1="20" x2="18" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="16"></line>
+              </svg>
+            </div>
+            <h3 class="service-name">Tráfego Pago</h3>
+            <p class="service-text">
+              Campanhas de alta performance no Meta Ads e Google Ads orientadas a ROI e escala consistente.
+            </p>
+            <span class="service-badge">★ ROI & Escala Previsível</span>
+          </div>
+
+          <!-- Serviço 3: Sites e Landing Pages -->
+          <div class="service-card">
+            <div class="service-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <h3 class="service-name">Sites e Landing Pages</h3>
+            <p class="service-text">
+              Páginas ultra-rápidas e estruturadas estrategicamente com foco total em conversão (UI/UX).
+            </p>
+            <span class="service-badge">★ Conversão & Velocidade</span>
+          </div>
+
+          <!-- Serviço 4: Registro de Marcas -->
+          <div class="service-card">
+            <div class="service-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <path d="M9 12l2 2 4-4"></path>
+              </svg>
+            </div>
+            <h3 class="service-name">Registro de Marcas</h3>
+            <p class="service-text">
+              Proteção jurídica integral no INPI para garantir a posse exclusiva do seu maior patrimônio.
+            </p>
+            <span class="service-badge">★ Segurança Jurídica INPI</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- LADO B: FORMULÁRIO DE DIAGNÓSTICO -->
+      <div class="form-col" id="diagnostico">
+        <div class="lead-form-card">
+          <div class="form-header">
+            <span class="form-badge">Atendimento Rápido</span>
+            <h3 class="form-title">Solicite seu Diagnóstico</h3>
+            <p class="form-subtitle">Preencha os campos para receber uma análise personalizada.</p>
+          </div>
+
+          <form id="leadForm" class="lead-form">
+            <!-- Linha 1: Nome e Telefone Lado a Lado -->
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="nome" class="form-label">Seu Nome <span>*</span></label>
+                <input type="text" id="nome" name="nome" class="form-input" placeholder="Ex: Roberto Carlos" required>
+              </div>
+
+              <div class="form-group">
+                <label for="whatsapp" class="form-label">WhatsApp <span>*</span></label>
+                <input type="tel" id="whatsapp" name="whatsapp" class="form-input" placeholder="(85) 99999-9999" required>
+              </div>
+            </div>
+
+            <!-- Linha 2: E-mail Profissional -->
+            <div class="form-group">
+              <label for="email" class="form-label">E-mail Profissional</label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="seuemail@empresa.com">
+            </div>
+
+            <!-- Linha 3: Interesse Multi-Seleção Interativo (Pode marcar mais de um) -->
+            <div class="form-group">
+              <label class="form-label">Interesse <span>*</span> <span class="form-hint">(escolha 1 ou mais)</span></label>
+              <div class="interest-pills-grid" id="interestPills">
+                <button type="button" class="interest-pill active" data-value="Branding Estratégico">
+                  <span class="pill-check">✓</span> Branding Estratégico
+                </button>
+                <button type="button" class="interest-pill" data-value="Tráfego Pago">
+                  <span class="pill-check">✓</span> Tráfego Pago
+                </button>
+                <button type="button" class="interest-pill" data-value="Sites e Landing Pages">
+                  <span class="pill-check">✓</span> Sites & LPs
+                </button>
+                <button type="button" class="interest-pill" data-value="Registro de Marcas">
+                  <span class="pill-check">✓</span> Registro de Marcas
+                </button>
+              </div>
+            </div>
+
+            <!-- Linha 4: Mensagem Breve -->
+            <div class="form-group">
+              <label for="mensagem" class="form-label">Mensagem (opcional):</label>
+              <textarea id="mensagem" name="mensagem" class="form-textarea" placeholder="Descreva brevemente seu objetivo..."></textarea>
+            </div>
+
+            <!-- Linha 5: Botões do Final Lado a Lado -->
+            <div class="form-buttons-row">
+              <button type="button" id="btnSubmitWhatsapp" class="btn-form-whatsapp">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                <span>Enviar no WhatsApp</span>
+              </button>
+
+              <button type="button" id="btnSubmitEmail" class="btn-form-email">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                <span>Enviar por E-mail</span>
+              </button>
+            </div>
+
+            <!-- Texto de Reafirmação e Privacidade -->
+            <p class="form-privacy-note">Ao preencher o formulário, você receberá um diagnóstico estratégico personalizado e nossa equipe entrará em contato via WhatsApp ou e-mail.</p>
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Transição em Degradê do Fim do Bloco 1 para o Branco do Bloco 2 -->
+    <div class="split-bottom-gradient"></div>
+  </section>
+
+  <!-- ========================================================================
+       BLOCO 2: COMBOS ESTRATÉGICOS (FUNDO BRANCO CLEAN, COMPACTO E ELEGANTE)
+       ======================================================================== -->
+  <section id="bloco-2" class="combos-section">
+    <div class="combos-container">
+      
+      <!-- Cabeçalho Compacto do Bloco 2 -->
+      <div class="combos-header">
+        <div class="combos-tag">
+          <span class="combos-tag-dot"></span>
+          <span>PACOTES & SOLUÇÕES INTEGRADAS</span>
+        </div>
+        <h2 class="combos-title">
+          Combos Estratégicos para o <span>Momento da sua Empresa</span>
+        </h2>
+        <p class="combos-description">
+          Pacotes estruturados com mais de 10 anos de metodologia para consolidar sua marca e gerar escala comercial.
+        </p>
+      </div>
+
+      <!-- Grid Compacto dos 3 Combos -->
+      <div class="combos-grid">
+        
+        <!-- COMBO 1: Fundação & Autoridade (Start) -->
+        <div class="combo-card" data-combo="fundacao">
+          <div class="combo-card-header">
+            <span class="combo-type-badge">Fundação de Marca</span>
+            <h3 class="combo-name">Combo Autoridade</h3>
+            <p class="combo-tagline">Construção e proteção da sua identidade visual no mercado.</p>
+          </div>
+
+          <div class="combo-features-list">
+            <div class="combo-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Branding Estratégico</strong> & Identidade Visual</span>
+            </div>
+            <div class="combo-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Registro de Marca</strong> Oficial no INPI</span>
+            </div>
+            <div class="combo-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Manual de Identidade & Aplicações</span>
+            </div>
+            <div class="combo-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Diagnóstico de Posicionamento</span>
+            </div>
+          </div>
+
+          <div class="combo-card-footer">
+            <button type="button" class="btn-combo-select" data-select-combo="fundacao">
+              <span>Selecionar este Combo</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- COMBO 2: Tração & Vendas (Performance) -->
+        <div class="combo-card" data-combo="performance">
+          <div class="combo-card-header">
+            <span class="combo-type-badge">Máquina de Vendas</span>
+            <h3 class="combo-name">Combo Performance</h3>
+            <p class="combo-tagline">Atração contínua de clientes qualificados e escala de ROI.</p>
+          </div>
+
+          <div class="combo-features-list">
+            <div class="combo-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Landing Page</strong> de Alta Conversão</span>
+            </div>
+            <div class="combo-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Tráfego Pago</strong> Meta Ads & Google Ads</span>
+            </div>
+            <div class="combo-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Otimização Contínua e Testes A/B</span>
+            </div>
+            <div class="combo-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Relatórios Semanais de Performance</span>
+            </div>
+          </div>
+
+          <div class="combo-card-footer">
+            <button type="button" class="btn-combo-select" data-select-combo="performance">
+              <span>Selecionar este Combo</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- COMBO 3: Ecossistema 360° (Destaque / Mais Escolhido) -->
+        <div class="combo-card combo-featured" data-combo="completo">
+          <div class="combo-featured-tag">★ MAIS ESCOLHIDO</div>
+          
+          <div class="combo-card-header">
+            <span class="combo-type-badge combo-badge-gold">Solução Integral 360°</span>
+            <h3 class="combo-name">Combo Ecossistema 360°</h3>
+            <p class="combo-tagline">Domínio de mercado: do posicionamento de marca à escala de vendas.</p>
+          </div>
+
+          <div class="combo-features-list">
+            <div class="combo-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Branding Estratégico</strong> Completo</span>
+            </div>
+            <div class="combo-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Registro de Marca</strong> Oficial no INPI</span>
+            </div>
+            <div class="combo-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Landing Page Premium</strong> Ultra-Rápida</span>
+            </div>
+            <div class="combo-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Gestão Avançada de Tráfego</strong> (Meta + Google)</span>
+            </div>
+            <div class="combo-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Consultoria Estratégica</strong> com Especialista</span>
+            </div>
+          </div>
+
+          <div class="combo-card-footer">
+            <button type="button" class="btn-combo-select btn-combo-featured" data-select-combo="completo">
+              <span>Selecionar este Combo</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       BLOCO 3: (RESERVADO / EM BRANCO PARA FUTURA IMPLEMENTAÇÃO)
+       ======================================================================== -->
+  <section id="bloco-3" class="section-placeholder">
+    <!-- Bloco 3: Aguardando implementação -->
+  </section>
+
+  <!-- ========================================================================
+       BLOCO 4: (RESERVADO / EM BRANCO PARA FUTURA IMPLEMENTAÇÃO)
+       ======================================================================== -->
+  <section id="bloco-4" class="section-placeholder">
+    <!-- Bloco 4: Aguardando implementação -->
+  </section>
+
+  <!-- ========================================================================
+       RODAPÉ BÁSICO
+       ======================================================================== -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <img src="assets/logo-netwo.png" alt="Netwo" style="height: 28px; opacity: 0.8;">
+      <p class="footer-credits">
+        © 2026 <strong>Netwo Comunicação</strong>. Todos os direitos reservados. Fortaleza, CE.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       BOTÃO FLUTUANTE WHATSAPP
+       ======================================================================== -->
+  <a href="https://api.whatsapp.com/send?phone=5585987978486&text=Ol%C3%A1%2C%20estou%20no%20site%20da%20Netwo%20e%20gostaria%20de%20tirar%20uma%20d%C3%BAvida." target="_blank" class="whatsapp-floating-btn" aria-label="Falar no WhatsApp">
+    <div class="whatsapp-pulse"></div>
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+  </a>
+
+  <!-- Script JS Externo -->
+  <script src="script.js"></script>
+</body>
+</html>
