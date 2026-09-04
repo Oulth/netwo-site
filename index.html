@@ -14,12 +14,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <!-- GSAP & ScrollTrigger CDN -->
+  <!-- GSAP, ScrollTrigger & ScrollToPlugin CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
 
   <!-- Estilos Customizados Externos -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=2.2">
 </head>
 <body>
 
@@ -32,14 +33,40 @@
         <img src="assets/logo-netwo.png" alt="Netwo Comunicação" class="logo-img">
       </a>
 
-      <nav>
+      <!-- Menu de Navegação Desktop -->
+      <nav class="nav-desktop">
         <ul class="nav-links">
           <li><a href="#hero" class="nav-link">Início</a></li>
           <li><a href="#bloco-1" class="nav-link">Soluções</a></li>
           <li><a href="#bloco-2" class="nav-link">Combos</a></li>
+          <li><a href="#bloco-3" class="nav-link">Cases</a></li>
           <li><a href="#diagnostico" class="nav-link">Diagnóstico</a></li>
         </ul>
       </nav>
+
+      <!-- Botão Hambúrguer Mobile -->
+      <button type="button" class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menu de navegação">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+
+    <!-- Gaveta / Overlay de Navegação Mobile -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay">
+      <ul class="mobile-nav-links">
+        <li><a href="#hero" class="mobile-nav-link">Início</a></li>
+        <li><a href="#bloco-1" class="mobile-nav-link">Nossas Soluções</a></li>
+        <li><a href="#bloco-2" class="mobile-nav-link">Combos Estratégicos</a></li>
+        <li><a href="#bloco-3" class="mobile-nav-link">Cases de Sucesso</a></li>
+        <li><a href="#diagnostico" class="mobile-nav-link">Solicitar Diagnóstico</a></li>
+      </ul>
+      <div class="mobile-nav-cta">
+        <a href="https://api.whatsapp.com/send?phone=5585987978486&text=Ol%C3%A1%2C%20estou%20no%20site%20da%20Netwo." target="_blank" class="mobile-wa-cta-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          <span>Falar no WhatsApp</span>
+        </a>
+      </div>
     </div>
   </header>
 
@@ -68,39 +95,18 @@
 
       <!-- Subtítulo de Autoridade -->
       <p class="hero-subtitle">
-        Consultoria especializada com <strong>mais de uma década de experiência</strong> em <strong>Branding</strong> e <strong>Performance</strong>.
+        Consultoria especializada em <strong>Branding e Performance</strong>. Mais de uma década transformando marcas em ativos de valor e gerando clientes todos os dias.
       </p>
 
-      <!-- Botões de Ação com Ícones -->
-      <div class="hero-actions">
-        <a href="#bloco-1" class="btn-primary">
-          <span class="btn-icon-wrapper">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#050811" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
-              <polyline points="10 9 9 9 8 9"></polyline>
-            </svg>
-          </span>
-          <span>Solicitar Diagnóstico</span>
-        </a>
 
-        <a href="https://api.whatsapp.com/send?phone=5585987978486&text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Netwo." target="_blank" class="btn-secondary">
-          <span class="btn-icon-wrapper">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366">
-              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-            </svg>
-          </span>
-          <span>WhatsApp Direto</span>
-        </a>
-      </div>
     </div>
 
-    <!-- Indicador de Scroll (Apenas Ícone do Mouse) -->
+    <!-- Indicador de Scroll Animado (Apenas Ícone) -->
     <a href="#bloco-1" class="scroll-indicator" aria-label="Rolar para os serviços">
-      <div class="mouse-icon">
-        <div class="mouse-wheel"></div>
+      <div class="scroll-icon-btn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="scroll-arrow">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
       </div>
     </a>
   </section>
@@ -115,15 +121,15 @@
       <div class="services-col">
         <div class="section-tag">
           <div class="section-tag-dot"></div>
-          <span>NOSSAS SOLUÇÕES</span>
+          <span>ESPECIALIDADES</span>
         </div>
         
         <h2 class="services-title">
-          Estratégia e execução para <span>escalar seu faturamento</span>
+          Estética do design aliada à <span>performance estratégica</span>
         </h2>
         
         <p class="services-description">
-          Combinamos a precisão do design com a força do tráfego para posicionar seu negócio como autoridade e gerar demanda qualificada todos os dias.
+          Unimos branding de alta precisão e gestão de tráfego para transformar sua empresa em uma marca forte, desejada e com vendas constantes.
         </p>
 
         <!-- Grid 2x2 dos 4 Cards -->
@@ -140,9 +146,9 @@
             </div>
             <h3 class="service-name">Branding Estratégico</h3>
             <p class="service-text">
-              Construção de identidade visual memorável e posicionamento premium que gera valor imediato.
+              Identidade visual completa, manual de marca e posicionamento para sua empresa cobrar com autoridade e se destacar no mercado.
             </p>
-            <span class="service-badge">★ Autoridade & Diferenciação</span>
+            <span class="service-badge">★ Posicionamento & Valor</span>
           </div>
 
           <!-- Serviço 2: Tráfego Pago -->
@@ -156,9 +162,9 @@
             </div>
             <h3 class="service-name">Tráfego Pago</h3>
             <p class="service-text">
-              Campanhas de alta performance no Meta Ads e Google Ads orientadas a ROI e escala consistente.
+              Gestão de anúncios no Meta Ads e Google Ads com segmentação precisa, foco em conversão e retorno sobre investimento.
             </p>
-            <span class="service-badge">★ ROI & Escala Previsível</span>
+            <span class="service-badge">★ Atração & Escala</span>
           </div>
 
           <!-- Serviço 3: Sites e Landing Pages -->
@@ -172,9 +178,9 @@
             </div>
             <h3 class="service-name">Sites e Landing Pages</h3>
             <p class="service-text">
-              Páginas ultra-rápidas e estruturadas estrategicamente com foco total em conversão (UI/UX).
+              Estruturas rápidas e intuitivas, projetadas para reter a atenção do visitante e gerar mensagens diretas no seu WhatsApp.
             </p>
-            <span class="service-badge">★ Conversão & Velocidade</span>
+            <span class="service-badge">★ Alta Conversão</span>
           </div>
 
           <!-- Serviço 4: Registro de Marcas -->
@@ -187,9 +193,9 @@
             </div>
             <h3 class="service-name">Registro de Marcas</h3>
             <p class="service-text">
-              Proteção jurídica integral no INPI para garantir a posse exclusiva do seu maior patrimônio.
+              Processo técnico e acompanhamento no INPI para blindar o nome da sua empresa contra cópias e garantir sua exclusividade legal.
             </p>
-            <span class="service-badge">★ Segurança Jurídica INPI</span>
+            <span class="service-badge">★ Proteção INPI</span>
           </div>
 
         </div>
@@ -200,8 +206,8 @@
         <div class="lead-form-card">
           <div class="form-header">
             <span class="form-badge">Atendimento Rápido</span>
-            <h3 class="form-title">Solicite seu Diagnóstico</h3>
-            <p class="form-subtitle">Preencha os campos para receber uma análise personalizada.</p>
+            <h3 class="form-title">Solicite seu Diagnóstico Gratuito</h3>
+            <p class="form-subtitle">Conte sobre seu negócio para receber uma análise prática da nossa equipe.</p>
           </div>
 
           <form id="leadForm" class="lead-form">
@@ -221,7 +227,7 @@
             <!-- Linha 2: E-mail Profissional -->
             <div class="form-group">
               <label for="email" class="form-label">E-mail Profissional</label>
-              <input type="email" id="email" name="email" class="form-input" placeholder="seuemail@empresa.com">
+              <input type="email" id="email" name="email" class="form-input" placeholder="seuemail@empresa.com.br">
             </div>
 
             <!-- Linha 3: Interesse Multi-Seleção Interativo (Pode marcar mais de um) -->
@@ -275,34 +281,67 @@
   </section>
 
   <!-- ========================================================================
-       BLOCO 2: COMBOS ESTRATÉGICOS (FUNDO BRANCO CLEAN, COMPACTO E ELEGANTE)
+       BLOCO 2: COMBOS ESTRATÉGICOS & SOLUÇÕES INTEGRADAS
        ======================================================================== -->
   <section id="bloco-2" class="combos-section">
     <div class="combos-container">
       
-      <!-- Cabeçalho Compacto do Bloco 2 -->
+      <!-- Cabeçalho do Bloco 2 -->
       <div class="combos-header">
         <div class="combos-tag">
           <span class="combos-tag-dot"></span>
-          <span>PACOTES & SOLUÇÕES INTEGRADAS</span>
+          <span>COMBOS ESTRATÉGICOS • SOLUÇÕES INTEGRADAS</span>
         </div>
         <h2 class="combos-title">
-          Combos Estratégicos para o <span>Momento da sua Empresa</span>
+          Soluções completas para <span>estruturar e acelerar sua marca</span>
         </h2>
         <p class="combos-description">
-          Pacotes estruturados com mais de 10 anos de metodologia para consolidar sua marca e gerar escala comercial.
+          Metodologia desenvolvida em mais de uma década para unir design de alta precisão, proteção jurídica e captação contínua de clientes.
         </p>
       </div>
 
-      <!-- Grid Compacto dos 3 Combos -->
+      <!-- Metodologia two by two (Método Oficial da Netwo em 4 Etapas) -->
+      <div class="methodology-wrapper">
+        <div class="methodology-header">
+          <div class="methodology-badge">
+            <span class="methodology-dot"></span>
+            <span>METODOLOGIA TWO BY TWO</span>
+          </div>
+          <span class="methodology-subtitle">O método de 4 etapas que orienta todas as soluções da Netwo</span>
+        </div>
+        <div class="methodology-grid">
+          <div class="methodology-step">
+            <span class="step-num">01</span>
+            <h4 class="step-name">Pesquisa</h4>
+            <p class="step-desc">Identificação do público original e análise do mercado de atuação.</p>
+          </div>
+          <div class="methodology-step">
+            <span class="step-num">02</span>
+            <h4 class="step-name">Estratégia</h4>
+            <p class="step-desc">Planejamento do funil de conversão alinhado a objetivos reais.</p>
+          </div>
+          <div class="methodology-step">
+            <span class="step-num">03</span>
+            <h4 class="step-name">Criação</h4>
+            <p class="step-desc">Desenvolvimento visual e técnico focado em valor e conversão.</p>
+          </div>
+          <div class="methodology-step">
+            <span class="step-num">04</span>
+            <h4 class="step-name">Implantação</h4>
+            <p class="step-desc">Segmentação de mídia com retorno sobre investimento e escala previsível.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid dos 3 Combos da Netwo -->
       <div class="combos-grid">
         
-        <!-- COMBO 1: Fundação & Autoridade (Start) -->
+        <!-- COMBO 1: Fundação & Autoridade -->
         <div class="combo-card" data-combo="fundacao">
           <div class="combo-card-header">
             <span class="combo-type-badge">Fundação de Marca</span>
             <h3 class="combo-name">Combo Autoridade</h3>
-            <p class="combo-tagline">Construção e proteção da sua identidade visual no mercado.</p>
+            <p class="combo-tagline">Construção da sua identidade visual e proteção jurídica do seu nome no INPI.</p>
           </div>
 
           <div class="combo-features-list">
@@ -320,7 +359,7 @@
             </div>
             <div class="combo-feature-item">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Diagnóstico de Posicionamento</span>
+              <span>Diagnóstico Inicial de Posicionamento</span>
             </div>
           </div>
 
@@ -332,12 +371,12 @@
           </div>
         </div>
 
-        <!-- COMBO 2: Tração & Vendas (Performance) -->
+        <!-- COMBO 2: Tração & Vendas -->
         <div class="combo-card" data-combo="performance">
           <div class="combo-card-header">
             <span class="combo-type-badge">Máquina de Vendas</span>
             <h3 class="combo-name">Combo Performance</h3>
-            <p class="combo-tagline">Atração contínua de clientes qualificados e escala de ROI.</p>
+            <p class="combo-tagline">Atração diária de pessoas interessadas no seu produto ou serviço.</p>
           </div>
 
           <div class="combo-features-list">
@@ -351,11 +390,11 @@
             </div>
             <div class="combo-feature-item">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Otimização Contínua e Testes A/B</span>
+              <span>Otimização Contínua de Anúncios</span>
             </div>
             <div class="combo-feature-item">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Relatórios Semanais de Performance</span>
+              <span>Relatórios Periódicos de Performance</span>
             </div>
           </div>
 
@@ -367,14 +406,14 @@
           </div>
         </div>
 
-        <!-- COMBO 3: Ecossistema 360° (Destaque / Mais Escolhido) -->
+        <!-- COMBO 3: Combo Completo 360° (Destaque Oficial da Netwo) -->
         <div class="combo-card combo-featured" data-combo="completo">
           <div class="combo-featured-tag">★ MAIS ESCOLHIDO</div>
           
           <div class="combo-card-header">
             <span class="combo-type-badge combo-badge-gold">Solução Integral 360°</span>
-            <h3 class="combo-name">Combo Ecossistema 360°</h3>
-            <p class="combo-tagline">Domínio de mercado: do posicionamento de marca à escala de vendas.</p>
+            <h3 class="combo-name">Combo Completo 360°</h3>
+            <p class="combo-tagline">A estrutura completa: da criação e registro da marca aos anúncios gerando clientes.</p>
           </div>
 
           <div class="combo-features-list">
@@ -388,15 +427,15 @@
             </div>
             <div class="combo-feature-item">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span><strong>Landing Page Premium</strong> Ultra-Rápida</span>
+              <span><strong>Landing Page Exclusiva</strong> de Alta Velocidade</span>
             </div>
             <div class="combo-feature-item">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span><strong>Gestão Avançada de Tráfego</strong> (Meta + Google)</span>
+              <span><strong>Gestão de Tráfego Pago</strong> (Meta + Google)</span>
             </div>
             <div class="combo-feature-item">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span><strong>Consultoria Estratégica</strong> com Especialista</span>
+              <span><strong>Consultoria Estratégica</strong> Direta com a Netwo</span>
             </div>
           </div>
 
@@ -414,10 +453,129 @@
   </section>
 
   <!-- ========================================================================
-       BLOCO 3: (RESERVADO / EM BRANCO PARA FUTURA IMPLEMENTAÇÃO)
+       BLOCO 3: PROVA SOCIAL & CASES DE SUCESSO REAIS DA NETWO
        ======================================================================== -->
-  <section id="bloco-3" class="section-placeholder">
-    <!-- Bloco 3: Aguardando implementação -->
+  <section id="bloco-3" class="cases-section">
+    <div class="cases-container">
+
+      <!-- Cabeçalho da Seção de Cases -->
+      <div class="cases-header">
+        <div class="cases-tag">
+          <span class="cases-tag-dot"></span>
+          <span>PORTFÓLIO & CLIENTES</span>
+        </div>
+        <h2 class="cases-title">
+          Empresas que confiam na <span>Netwo Comunicação</span>
+        </h2>
+        <p class="cases-description">
+          Mais de uma década desenvolvendo posicionamento visual sólido, campanhas de resultado e proteção legal para marcas de destaque.
+        </p>
+      </div>
+
+      <!-- Esteira Infinita de Logotipos Reais (Logo Marquee - 15 Marcas Atendidas) -->
+      <div class="marquee-container">
+        <div class="marquee-track">
+          <!-- 1ª Gaveta / Linha 1 -->
+          <div class="marquee-item"><img src="assets/logos/logo_crocs.png" alt="Crocs" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_terrazo.png" alt="Terrazo Shopping" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_agape.png" alt="Colégio Ágape" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_acrisio.png" alt="Acrísio Sena" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_medalha_milagrosa.png" alt="Colégio Medalha Milagrosa" class="marquee-logo-img"></div>
+          <!-- 2ª Gaveta / Linha 2 -->
+          <div class="marquee-item"><img src="assets/logos/logo_mundo_1.png" alt="Colégio Mundo 1" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_terreiro_oladeji.png" alt="Terreiro Escola Oladeji" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_baba_linconly.png" alt="Baba Linconly" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_oladeji_magias.png" alt="Ilê Asé Obá Oladeji Magias" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_xfit.png" alt="XFIT" class="marquee-logo-img"></div>
+          <!-- 3ª Gaveta / Linha 3 -->
+          <div class="marquee-item"><img src="assets/logos/logo_alerta_residuos.png" alt="Alerta Gestão de Resíduos" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_idear.png" alt="Idear Odontologia" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_saltito.png" alt="Clínica Saltito" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_quitutes_helena.png" alt="Quitutes de Helena" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_lumiere.png" alt="Lumiere" class="marquee-logo-img"></div>
+
+          <!-- Duplicado para loop contínuo infinito -->
+          <div class="marquee-item"><img src="assets/logos/logo_crocs.png" alt="Crocs" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_terrazo.png" alt="Terrazo Shopping" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_agape.png" alt="Colégio Ágape" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_acrisio.png" alt="Acrísio Sena" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_medalha_milagrosa.png" alt="Colégio Medalha Milagrosa" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_mundo_1.png" alt="Colégio Mundo 1" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_terreiro_oladeji.png" alt="Terreiro Escola Oladeji" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_baba_linconly.png" alt="Baba Linconly" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_oladeji_magias.png" alt="Ilê Asé Obá Oladeji Magias" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_xfit.png" alt="XFIT" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_alerta_residuos.png" alt="Alerta Gestão de Resíduos" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_idear.png" alt="Idear Odontologia" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_saltito.png" alt="Clínica Saltito" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_quitutes_helena.png" alt="Quitutes de Helena" class="marquee-logo-img"></div>
+          <div class="marquee-item"><img src="assets/logos/logo_lumiere.png" alt="Lumiere" class="marquee-logo-img"></div>
+        </div>
+      </div>
+
+      <!-- Grid dos Cases Reais com Imagens Oficiais da Netwo -->
+      <div class="cases-grid">
+
+        <!-- Case 1: Crocs -->
+        <div class="case-card">
+          <div class="case-img-wrapper">
+            <img src="assets/unnamed(11).png" alt="Case Crocs" class="case-thumb-img">
+            <span class="case-badge-pill">Varejo Global</span>
+          </div>
+          <div class="case-body">
+            <span class="case-pill">Comunicação & Varejo</span>
+            <h3 class="case-name">Crocs™: Presença e Campanhas</h3>
+            <p class="case-desc">
+              Desenvolvimento de peças e campanhas visuais alinhadas às diretrizes globais da marca no varejo.
+            </p>
+          </div>
+          <div class="case-footer">
+            <span class="case-tag-bullet">★ Varejo Global</span>
+            <span class="case-tag-bullet">★ Campanhas Ativas</span>
+          </div>
+        </div>
+
+        <!-- Case 2: Terrazo Shopping (Destaque) -->
+        <div class="case-card case-card-featured">
+          <div class="case-featured-ribbon">DESTAQUE</div>
+          <div class="case-img-wrapper">
+            <img src="assets/unnamed(14).png" alt="Case Terrazo Shopping" class="case-thumb-img">
+            <span class="case-badge-pill case-badge-gold">Shopping Center</span>
+          </div>
+          <div class="case-body">
+            <span class="case-pill case-pill-gold">Grandes Campanhas</span>
+            <h3 class="case-name">Terrazo Shopping: Ações Sazonais</h3>
+            <p class="case-desc">
+              Planejamento e materiais para datas estratégicas do calendário comercial, eventos e atração contínua de consumidores.
+            </p>
+          </div>
+          <div class="case-footer">
+            <span class="case-tag-bullet">★ Fluxo de Consumidores</span>
+            <span class="case-tag-bullet">★ Campanhas Sazonais</span>
+          </div>
+        </div>
+
+        <!-- Case 3: Clínica Integrada Saltito -->
+        <div class="case-card">
+          <div class="case-img-wrapper">
+            <img src="assets/unnamed(13).png" alt="Case Clínica Saltito" class="case-thumb-img">
+            <span class="case-badge-pill case-badge-pink">Saúde Infantil</span>
+          </div>
+          <div class="case-body">
+            <span class="case-pill case-pill-pink">Branding com Propósito</span>
+            <h3 class="case-name">Clínica Saltito: "Tocar, Ver, Sentir"</h3>
+            <p class="case-desc">
+              Comunicação acolhedora e sensível voltada a integração sensorial e desenvolvimento infantil, conectando a clínica às famílias.
+            </p>
+          </div>
+          <div class="case-footer">
+            <span class="case-tag-bullet">★ Comunicação Humanizada</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
   </section>
 
   <!-- ========================================================================
@@ -428,14 +586,93 @@
   </section>
 
   <!-- ========================================================================
-       RODAPÉ BÁSICO
+       RODAPÉ PREMIUM (COR PADRÃO AZUL NETWO)
        ======================================================================== -->
   <footer class="site-footer">
     <div class="footer-container">
-      <img src="assets/logo-netwo.png" alt="Netwo" style="height: 28px; opacity: 0.8;">
-      <p class="footer-credits">
-        © 2026 <strong>Netwo Comunicação</strong>. Todos os direitos reservados. Fortaleza, CE.
-      </p>
+
+      <!-- Grid Principal de Informações (4 Colunas) -->
+      <div class="footer-grid">
+        
+        <!-- Coluna 1: Marca & Propósito -->
+        <div class="footer-col footer-col-brand">
+          <a href="#hero" class="footer-logo-link">
+            <img src="assets/logo-netwo.png" alt="Netwo Comunicação" class="footer-logo-img">
+          </a>
+          <p class="footer-slogan">
+            Nós somos <span>a sua ideia.</span>
+          </p>
+          <p class="footer-desc">
+            Agência de Marketing e Branding de alta precisão em Fortaleza. Combinamos a estética do design com a performance estratégica para transformar marcas em ativos de valor.
+          </p>
+          <div class="footer-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFC814" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <span>Mais de uma década de experiência</span>
+          </div>
+        </div>
+
+        <!-- Coluna 2: Nossas Soluções -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">Especialidades</h4>
+          <ul class="footer-nav-list">
+            <li><a href="#bloco-1" class="footer-link">Branding Estratégico</a></li>
+            <li><a href="#bloco-1" class="footer-link">Tráfego Pago (Meta & Google)</a></li>
+            <li><a href="#bloco-1" class="footer-link">Sites & Landing Pages</a></li>
+            <li><a href="#bloco-1" class="footer-link">Registro de Marca no INPI</a></li>
+          </ul>
+        </div>
+
+        <!-- Coluna 3: Combos Estratégicos -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">Combos Estratégicos</h4>
+          <ul class="footer-nav-list">
+            <li><a href="#bloco-2" class="footer-link">Combo Autoridade</a></li>
+            <li><a href="#bloco-2" class="footer-link">Combo Performance</a></li>
+            <li><a href="#bloco-2" class="footer-link">Combo Completo 360°</a></li>
+            <li><a href="#diagnostico" class="footer-link">Solicitar Diagnóstico</a></li>
+          </ul>
+        </div>
+
+        <!-- Coluna 4: Atendimento & Localização -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">Atendimento</h4>
+          <div class="footer-status-pill">
+            <span class="status-dot"></span>
+            <span>Atendimento Online Ativo</span>
+          </div>
+          <ul class="footer-contact-list">
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <a href="https://api.whatsapp.com/send?phone=5585987978486" target="_blank">(85) 98797-8486</a>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <a href="mailto:agencianetwo@gmail.com">agencianetwo@gmail.com</a>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              <a href="https://www.instagram.com/agencianetwo" target="_blank">@agencianetwo</a>
+            </li>
+            <li class="footer-meta-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span>Fortaleza, CE • Atendimento Brasil</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- 3. Barra Inferior com Copyright e Voltar ao Topo -->
+      <div class="footer-bottom-bar">
+        <p class="footer-copyright">
+          © 2026 <strong>Netwo Comunicação</strong>. Todos os direitos reservados.
+        </p>
+        <button type="button" class="footer-back-top" id="btnBackToTop" aria-label="Voltar ao topo">
+          <span>Voltar ao topo</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+        </button>
+      </div>
+
     </div>
   </footer>
 
@@ -448,6 +685,6 @@
   </a>
 
   <!-- Script JS Externo -->
-  <script src="script.js"></script>
+  <script src="script.js?v=2.2"></script>
 </body>
 </html>
