@@ -67,49 +67,108 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Atualização de estado da barra fixa e ScrollSpy
-  const updateHeaderAndScrollSpy = () => {
-    const scrollPos = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+  // Cache de posições das seções para eliminar Reflow Forçado (Layout Thrashing) no scroll
+  let cachedSwitchThreshold = 100;
+  let cachedSectionRanges = [];
 
+  const updateCachedPositions = () => {
     const bloco1 = document.getElementById('bloco-1');
-    // Transiciona para o menu normal ao se aproximar do primeiro bloco
-    const switchThreshold = bloco1 ? Math.max(100, bloco1.offsetTop - 120) : (window.innerHeight * 0.7);
+    cachedSwitchThreshold = bloco1 ? Math.max(100, bloco1.offsetTop - 120) : (window.innerHeight * 0.7);
 
-    // Efeito: no banner mantém máscara preta e logo branca; ao rolar para o primeiro bloco, volta ao normal
+    cachedSectionRanges = sectionsToTrack.map(sec => {
+      const el = document.getElementById(sec.id);
+      if (!el) return null;
+      const top = el.offsetTop - 120;
+      const height = el.offsetHeight;
+      return { id: sec.id, top, bottom: top + height, link: sec.link };
+    }).filter(Boolean);
+  };
+
+  updateCachedPositions();
+  window.addEventListener('resize', updateCachedPositions, { passive: true });
+  window.addEventListener('load', updateCachedPositions, { passive: true });
+
+  let lastActiveId = '';
+  const updateHeaderAndScrollSpy = (scrollPos) => {
+    // Efeito do Header
     if (header) {
-      if (scrollPos >= switchThreshold) {
-        header.classList.add('scrolled');
+      if (scrollPos >= cachedSwitchThreshold) {
+        if (!header.classList.contains('scrolled')) header.classList.add('scrolled');
       } else {
-        header.classList.remove('scrolled');
+        if (header.classList.contains('scrolled')) header.classList.remove('scrolled');
       }
     }
 
-    // ScrollSpy: Destaca o link da seção ativa no menu
+    // ScrollSpy: Identifica seção ativa
     let currentSectionId = 'hero';
-    sectionsToTrack.forEach(sec => {
-      const el = document.getElementById(sec.id);
-      if (el) {
-        const top = el.offsetTop - 120;
-        const height = el.offsetHeight;
-        if (scrollPos >= top && scrollPos < top + height) {
-          currentSectionId = sec.id;
-        }
+    for (let i = 0; i < cachedSectionRanges.length; i++) {
+      const sec = cachedSectionRanges[i];
+      if (scrollPos >= sec.top && scrollPos < sec.bottom) {
+        currentSectionId = sec.id;
+        break;
       }
-    });
+    }
 
-    sectionsToTrack.forEach(sec => {
-      if (sec.link) {
-        if (sec.id === currentSectionId) {
-          sec.link.classList.add('active');
-        } else {
-          sec.link.classList.remove('active');
+    if (currentSectionId !== lastActiveId) {
+      lastActiveId = currentSectionId;
+      sectionsToTrack.forEach(sec => {
+        if (sec.link) {
+          if (sec.id === currentSectionId) {
+            sec.link.classList.add('active');
+          } else {
+            sec.link.classList.remove('active');
+          }
         }
-      }
-    });
+      });
+    }
   };
 
-  window.addEventListener('scroll', updateHeaderAndScrollSpy, { passive: true });
-  updateHeaderAndScrollSpy(); // Executa imediatamente
+  // Botão flutuante WhatsApp - visibilidade vinculada ao RAF centralizado
+  const floatingWa = document.querySelector('.whatsapp-floating-btn');
+  if (floatingWa && hasGsap) {
+    gsap.set(floatingWa, { scale: 0, opacity: 0 });
+  }
+  let isWaVisible = false;
+
+  const updateFloatingWa = (scrollPos) => {
+    if (!floatingWa || !hasGsap) return;
+    if (scrollPos > 250 && !isWaVisible) {
+      isWaVisible = true;
+      gsap.to(floatingWa, {
+        scale: 1,
+        opacity: 1,
+        duration: 0.45,
+        ease: 'back.out(1.8)',
+        force3D: true
+      });
+    } else if (scrollPos <= 250 && isWaVisible) {
+      isWaVisible = false;
+      gsap.to(floatingWa, {
+        scale: 0,
+        opacity: 0,
+        duration: 0.35,
+        ease: 'power2.in',
+        force3D: true
+      });
+    }
+  };
+
+  // Loop Único de Rolagem Otimizado via requestAnimationFrame (60/120 FPS fluido)
+  let isScrollTicking = false;
+  const onWindowScroll = () => {
+    if (!isScrollTicking) {
+      window.requestAnimationFrame(() => {
+        const scrollPos = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+        updateHeaderAndScrollSpy(scrollPos);
+        updateFloatingWa(scrollPos);
+        isScrollTicking = false;
+      });
+      isScrollTicking = true;
+    }
+  };
+
+  window.addEventListener('scroll', onWindowScroll, { passive: true });
+  onWindowScroll(); // Executa imediatamente
 
   // Navegação com Rolagem Suave 100% Estável
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -197,6 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         y: -70,
         opacity: 0.15,
+        force3D: true,
         ease: 'none'
       });
 
@@ -211,6 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
           },
           scale: 1.08,
           y: 40,
+          force3D: true,
           ease: 'none'
         });
       }
@@ -319,17 +380,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // 5.3 Pulso Sutil de Glow Dourado no Combo em Destaque (360°)
-    const featuredCard = document.querySelector('.combo-card.combo-featured');
-    if (featuredCard) {
-      gsap.to(featuredCard, {
-        boxShadow: '0 16px 42px -4px rgba(255, 200, 20, 0.45)',
-        repeat: -1,
-        yoyo: true,
-        duration: 2.4,
-        ease: 'sine.inOut'
-      });
-    }
+    // 5.3 Pulso Sutil no Combo em Destaque (360°)
+    // Otimizado: agora rodando via animação CSS por GPU (@keyframes featuredGlowPulse) sem travar a thread JS
 
     // 5.4 Revelação do Bloco 3: Cases de Sucesso & Marcas
     gsap.from(['.cases-tag', '.cases-title', '.cases-description'], {
@@ -362,73 +414,52 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 6. EFEITO 3D TILT NOS CARDS (INTERAÇÃO COM O MOUSE)
+  // 6. EFEITO 3D TILT NOS CARDS (OTIMIZADO COM RAF & FORCE3D)
   // =========================================================================
   const isPointerFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   if (isPointerFine && hasGsap) {
     const tiltCards = document.querySelectorAll('.service-card, .combo-card, .case-card');
     tiltCards.forEach(card => {
+      let tiltRaf = null;
+
       card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const cardX = e.clientX - rect.left;
-        const cardY = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
+        if (tiltRaf) cancelAnimationFrame(tiltRaf);
+        tiltRaf = requestAnimationFrame(() => {
+          const rect = card.getBoundingClientRect();
+          const cardX = e.clientX - rect.left;
+          const cardY = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
 
-        const rotateX = ((cardY - centerY) / centerY) * -5;
-        const rotateY = ((cardX - centerX) / centerX) * 5;
+          const rotateX = ((cardY - centerY) / centerY) * -5;
+          const rotateY = ((cardX - centerX) / centerX) * 5;
 
-        gsap.to(card, {
-          rotationX: rotateX,
-          rotationY: rotateY,
-          transformPerspective: 800,
-          scale: 1.015,
-          duration: 0.35,
-          ease: 'power1.out',
-          overwrite: 'auto'
+          gsap.to(card, {
+            rotationX: rotateX,
+            rotationY: rotateY,
+            transformPerspective: 800,
+            scale: 1.015,
+            duration: 0.35,
+            force3D: true,
+            ease: 'power1.out',
+            overwrite: 'auto'
+          });
         });
-      });
+      }, { passive: true });
 
       card.addEventListener('mouseleave', () => {
+        if (tiltRaf) cancelAnimationFrame(tiltRaf);
         gsap.to(card, {
           rotationX: 0,
           rotationY: 0,
           scale: 1,
           duration: 0.6,
+          force3D: true,
           ease: 'power2.out',
           overwrite: 'auto'
         });
-      });
+      }, { passive: true });
     });
-  }
-
-  // =========================================================================
-  // 7. BOTÃO FLUTUANTE DO WHATSAPP (ENTRADA & PULSO NO SCROLL)
-  // =========================================================================
-  const floatingWa = document.querySelector('.whatsapp-floating-btn');
-  if (floatingWa && hasGsap) {
-    gsap.set(floatingWa, { scale: 0, opacity: 0 });
-
-    let isVisible = false;
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 250 && !isVisible) {
-        isVisible = true;
-        gsap.to(floatingWa, {
-          scale: 1,
-          opacity: 1,
-          duration: 0.45,
-          ease: 'back.out(1.8)'
-        });
-      } else if (window.scrollY <= 250 && isVisible) {
-        isVisible = false;
-        gsap.to(floatingWa, {
-          scale: 0,
-          opacity: 0,
-          duration: 0.35,
-          ease: 'power2.in'
-        });
-      }
-    }, { passive: true });
   }
 
   // =========================================================================
@@ -565,11 +596,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 11. ENVIO DO FORMULÁRIO (WHATSAPP E E-MAIL)
+  // 11. ENVIO ASSÍNCRONO DO FORMULÁRIO (GOOGLE APPS SCRIPT WEBHOOK)
   // =========================================================================
-  const btnWhatsApp = document.getElementById('btnSubmitWhatsapp');
-  const btnEmail = document.getElementById('btnSubmitEmail');
+  // URL do Web App do Google Apps Script (gerada no Google Drive)
+  const GOOGLE_SCRIPT_WEBHOOK_URL = ""; 
   const WHATSAPP_NUMBER = '5585987978486';
+
+  const leadForm = document.getElementById('leadForm');
+  const btnSubmitLead = document.getElementById('btnSubmitLead');
+  const formStatus = document.getElementById('formStatus');
 
   function getSelectedInterests() {
     const activePills = document.querySelectorAll('.interest-pill.active');
@@ -577,61 +612,113 @@ document.addEventListener('DOMContentLoaded', () => {
     return selected.length > 0 ? selected.join(', ') : 'Consultoria Completa';
   }
 
-  function getFormData() {
-    const nomeEl = document.getElementById('nome');
-    const whatsappEl = document.getElementById('whatsapp');
-    const emailEl = document.getElementById('email');
-    const mensagemEl = document.getElementById('mensagem');
-
-    const nome = nomeEl ? nomeEl.value.trim() : '';
-    const whatsapp = whatsappEl ? whatsappEl.value.trim() : '';
-    const email = emailEl ? emailEl.value.trim() : '';
-    const servico = getSelectedInterests();
-    const mensagem = mensagemEl ? mensagemEl.value.trim() : '';
-
-    if (!nome || !whatsapp) {
-      alert('Por favor, preencha pelo menos seu Nome e WhatsApp.');
-      if (!nome && nomeEl) nomeEl.focus();
-      else if (whatsappEl) whatsappEl.focus();
-      return null;
-    }
-
-    return { nome, whatsapp, email, servico, mensagem };
+  function showFormStatus(type, message) {
+    if (!formStatus) return;
+    formStatus.className = 'form-status-alert ' + type;
+    formStatus.innerHTML = message;
+    formStatus.style.display = 'block';
   }
 
-  if (btnWhatsApp) {
-    btnWhatsApp.addEventListener('click', (e) => {
-      e.preventDefault();
-      const data = getFormData();
-      if (!data) return;
-
-      let msg = `*Solicitação de Diagnóstico - Netwo Comunicação*\n\n`;
-      msg += `👤 *Nome:* ${data.nome}\n`;
-      msg += `📱 *WhatsApp:* ${data.whatsapp}\n`;
-      if (data.email) msg += `✉️ *E-mail:* ${data.email}\n`;
-      msg += `🎯 *Interesse(s):* ${data.servico}\n`;
-      if (data.mensagem) msg += `💬 *Mensagem:* ${data.mensagem}\n`;
-
-      const encodedMsg = encodeURIComponent(msg);
-      window.open(`https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodedMsg}`, '_blank');
-    });
+  function hideFormStatus() {
+    if (!formStatus) return;
+    formStatus.style.display = 'none';
+    formStatus.innerHTML = '';
   }
 
-  if (btnEmail) {
-    btnEmail.addEventListener('click', (e) => {
+  if (leadForm) {
+    leadForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const data = getFormData();
-      if (!data) return;
+      hideFormStatus();
 
-      const subject = encodeURIComponent(`Diagnóstico Estratégico - ${data.nome}`);
-      let body = `Nome: ${data.nome}\n`;
-      body += `WhatsApp: ${data.whatsapp}\n`;
-      body += `E-mail: ${data.email || 'Não informado'}\n`;
-      body += `Interesse(s): ${data.servico}\n`;
-      body += `Mensagem: ${data.mensagem || 'Sem mensagem adicional'}\n`;
+      const nomeEl = document.getElementById('nome');
+      const whatsappEl = document.getElementById('whatsapp');
+      const emailEl = document.getElementById('email');
+      const mensagemEl = document.getElementById('mensagem');
 
-      const mailtoUrl = `mailto:agencianetwo@gmail.com?subject=${subject}&body=${encodeURIComponent(body)}`;
-      window.location.href = mailtoUrl;
+      const nome = nomeEl ? nomeEl.value.trim() : '';
+      const whatsapp = whatsappEl ? whatsappEl.value.trim() : '';
+      const email = emailEl ? emailEl.value.trim() : '';
+      const servicos = getSelectedInterests();
+      const mensagem = mensagemEl ? mensagemEl.value.trim() : '';
+
+      // Validações
+      if (!nome || !whatsapp || !email) {
+        showFormStatus('error', '⚠️ Por favor, preencha todos os campos obrigatórios (Nome, WhatsApp e E-mail).');
+        if (!nome && nomeEl) nomeEl.focus();
+        else if (!whatsapp && whatsappEl) whatsappEl.focus();
+        else if (!email && emailEl) emailEl.focus();
+        return;
+      }
+
+      const payload = { nome, whatsapp, email, servicos, mensagem };
+
+      // Fallback amigável caso a URL do Webhook ainda não tenha sido configurada
+      if (!GOOGLE_SCRIPT_WEBHOOK_URL || GOOGLE_SCRIPT_WEBHOOK_URL.trim() === '') {
+        let msg = `*Solicitação de Diagnóstico - Netwo Comunicação*\n\n`;
+        msg += `👤 *Nome:* ${nome}\n`;
+        msg += `📱 *WhatsApp:* ${whatsapp}\n`;
+        msg += `✉️ *E-mail:* ${email}\n`;
+        msg += `🎯 *Interesse(s):* ${servicos}\n`;
+        if (mensagem) msg += `💬 *Mensagem:* ${mensagem}\n`;
+
+        const encodedMsg = encodeURIComponent(msg);
+        window.open(`https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodedMsg}`, '_blank');
+
+        showFormStatus('success', '✓ Sua solicitação foi aberta no WhatsApp da Netwo! <em>(Para receber também por e-mail, siga as instruções em COMO_CONFIGURAR_GOOGLE_APPS_SCRIPT.md)</em>.');
+        return;
+      }
+
+      // Estado de Carregamento
+      if (btnSubmitLead) {
+        btnSubmitLead.classList.add('loading');
+        btnSubmitLead.disabled = true;
+        const btnText = btnSubmitLead.querySelector('.btn-text');
+        if (btnText) btnText.textContent = 'Enviando solicitação...';
+      }
+
+      try {
+        // Envio via POST para o Google Apps Script (modo no-cors para contornar redirecionamentos do Google)
+        await fetch(GOOGLE_SCRIPT_WEBHOOK_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        // Sucesso
+        showFormStatus('success', '✓ <strong>Solicitação enviada com sucesso!</strong> Nossa equipe analisará seu negócio e entrará em contato em breve.');
+        leadForm.reset();
+
+        // Restaura seleção padrão das tags de interesse
+        const pills = document.querySelectorAll('.interest-pill');
+        pills.forEach((p, idx) => {
+          if (idx === 0) p.classList.add('active');
+          else p.classList.remove('active');
+        });
+
+      } catch (err) {
+        console.error('Erro ao enviar para Google Apps Script:', err);
+
+        // Fallback para WhatsApp caso haja queda de rede
+        let msg = `*Solicitação de Diagnóstico - Netwo Comunicação*\n\n`;
+        msg += `👤 *Nome:* ${nome}\n`;
+        msg += `📱 *WhatsApp:* ${whatsapp}\n`;
+        msg += `✉️ *E-mail:* ${email}\n`;
+        msg += `🎯 *Interesse(s):* ${servicos}\n`;
+        if (mensagem) msg += `💬 *Mensagem:* ${mensagem}\n`;
+        const waUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(msg)}`;
+
+        showFormStatus('error', `⚠️ Não foi possível conectar ao servidor. <a href="${waUrl}" target="_blank" style="color: #FFC814; font-weight: bold; text-decoration: underline;">Clique aqui para enviar via WhatsApp</a>.`);
+      } finally {
+        if (btnSubmitLead) {
+          btnSubmitLead.classList.remove('loading');
+          btnSubmitLead.disabled = false;
+          const btnText = btnSubmitLead.querySelector('.btn-text');
+          if (btnText) btnText.textContent = 'Conversar com a equipe da Netwo';
+        }
+      }
     });
   }
 
