@@ -7,13 +7,13 @@
  * 1. Recebe dados via requisição POST (JSON ou formulário).
  * 2. Registra automaticamente o lead em uma nova linha do Google Sheets.
  * 3. Cria os cabeçalhos da planilha na primeira execução, se necessário.
- * 4. Envia e-mail formatado para agencianetwo@gmail.com.
+ * 4. Envia e-mail formatado para tecnologianetwo@gmail.com.
  * 5. Configura o Reply-To com o e-mail do lead para resposta direta no Gmail.
  * 6. Gera link direto para iniciar conversa no WhatsApp do lead com 1 clique.
  */
 
 // E-mail de destino oficial da agência
-const DESTINATION_EMAIL = "agencianetwo@gmail.com";
+const DESTINATION_EMAIL = "tecnologianetwo@gmail.com";
 
 /**
  * Ponto de entrada para requisições POST

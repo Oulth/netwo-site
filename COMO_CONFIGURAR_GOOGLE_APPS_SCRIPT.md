@@ -1,11 +1,11 @@
 # Guia Passo a Passo: Ativar o Envio de Leads no Google Sheets e Gmail
 
-Este guia ensina como conectar o formulário do site ao seu Google Sheets e ao seu Gmail (`agencianetwo@gmail.com`) em menos de 2 minutos.
+Este guia ensina como conectar o formulário do site ao seu Google Sheets e ao seu Gmail (`tecnologianetwo@gmail.com`) em menos de 2 minutos.
 
 ---
 
 ### Passo 1: Criar a Planilha no Google Drive
-1. Acesse o seu [Google Drive](https://drive.google.com/) ou [Google Sheets](https://sheets.new) logado na conta **`agencianetwo@gmail.com`**.
+1. Acesse o seu [Google Drive](https://drive.google.com/) ou [Google Sheets](https://sheets.new) logado na conta **`tecnologianetwo@gmail.com`**.
 2. Crie uma nova planilha em branco.
 3. Dê o nome que preferir (exemplo: **Leads - Netwo Comunicação**).
 
@@ -32,7 +32,7 @@ Este guia ensina como conectar o formulário do site ao seu Google Sheets e ao s
 2. Na engrenagem ao lado de "Selecione o tipo", escolha: **App da Web** (*Web app*).
 3. Preencha as configurações exatamente assim:
    * **Descrição:** `Webhook Leads Netwo`
-   * **Executar como:** `Eu (agencianetwo@gmail.com)`
+   * **Executar como:** `Eu (tecnologianetwo@gmail.com)`
    * **Quem pode acessar:** **Qualquer pessoa** (*Anyone*) ⚠️ *(Importante: se deixar restrito, o site não conseguirá enviar os dados)*.
 4. Clique em **Implantar** (*Deploy*).
 5. O Google pedirá para **Autorizar o acesso**:
@@ -63,5 +63,5 @@ Este guia ensina como conectar o formulário do site ao seu Google Sheets e ao s
 A partir de agora:
 1. Toda vez que alguém preencher o formulário no site e clicar em **"Conversar com a equipe da Netwo"**:
    * Uma linha será adicionada automaticamente na sua planilha com data, hora, nome, WhatsApp, e-mail e serviço.
-   * Um e-mail formatado chegará no **`agencianetwo@gmail.com`** com link direto para chamar a pessoa no WhatsApp com 1 clique.
+   * Um e-mail formatado chegará no **`tecnologianetwo@gmail.com`** com link direto para chamar a pessoa no WhatsApp com 1 clique.
    * Ao clicar em **"Responder"** no Gmail, o campo de destinatário já será preenchido automaticamente com o e-mail do cliente!
