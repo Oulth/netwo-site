@@ -133,6 +133,8 @@ button, input, select, textarea {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
   transition: top 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   pointer-events: auto;
+  transform: translateZ(0);
+  will-change: transform, background, top;
 }
 
 .site-header.scrolled {
@@ -374,6 +376,9 @@ button, input, select, textarea {
   object-position: center 32%;
   filter: brightness(1.06) contrast(1.1);
   opacity: 0.94;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .hero-overlay {
@@ -426,6 +431,8 @@ button, input, select, textarea {
   max-width: 880px;
   margin: auto 0;
   display: flex;
+  will-change: transform, opacity;
+  transform: translateZ(0);
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -902,59 +909,135 @@ button, input, select, textarea {
   min-height: 42px;
 }
 
-.form-buttons-row {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 0.5rem;
-  margin-top: 0.2rem;
+.form-submit-wrapper {
+  margin-top: 0.35rem;
+  width: 100%;
 }
 
-.btn-form-whatsapp {
+.btn-form-submit {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  background: var(--whatsapp-green);
-  color: #03200E;
-  font-weight: 700;
-  font-size: 0.82rem;
-  padding: 0.65rem 0.5rem;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+  color: #04060C;
+  font-weight: 800;
+  font-size: 0.92rem;
+  padding: 0.85rem 1rem;
   border-radius: var(--radius-sm);
   border: none;
   cursor: pointer;
   transition: var(--transition);
-  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
-  white-space: nowrap;
-  min-height: 42px;
+  box-shadow: 0 4px 18px var(--gold-glow);
+  position: relative;
+  min-height: 46px;
 }
 
-.btn-form-whatsapp:hover {
-  background: var(--whatsapp-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.5);
+.btn-form-submit:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--gold-glow-intense);
 }
 
-.btn-form-email {
+.btn-form-submit:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-form-submit .btn-arrow-icon {
+  transition: transform 0.25s ease;
+}
+
+.btn-form-submit:hover:not(:disabled) .btn-arrow-icon {
+  transform: translateX(3px);
+}
+
+/* Spinner de carregamento */
+.btn-spinner {
+  display: none;
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(4, 6, 12, 0.25);
+  border-top-color: #04060C;
+  border-radius: 50%;
+  animation: btnSpinnerAnim 0.75s linear infinite;
+}
+
+@keyframes btnSpinnerAnim {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.btn-form-submit.loading .btn-spinner {
+  display: inline-block;
+}
+
+.btn-form-submit.loading .btn-arrow-icon {
+  display: none;
+}
+
+/* Link Auxiliar para WhatsApp */
+.form-wa-helper {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  background: rgba(255, 255, 255, 0.14);
-  color: #FFFFFF;
-  font-weight: 600;
-  font-size: 0.8rem;
-  padding: 0.65rem 0.5rem;
-  border-radius: var(--radius-sm);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  cursor: pointer;
-  transition: var(--transition);
-  white-space: nowrap;
-  min-height: 42px;
+  margin-top: 0.65rem;
+  font-size: 0.76rem;
+  color: var(--text-blue-200);
 }
 
-.btn-form-email:hover {
-  background: rgba(255, 255, 255, 0.24);
-  border-color: #FFFFFF;
+.form-wa-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #25D366;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.form-wa-link:hover {
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+/* Mensagens de Feedback de Envio */
+.form-status-alert {
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  line-height: 1.45;
+  text-align: center;
+  animation: alertFadeIn 0.3s ease;
+}
+
+@keyframes alertFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-status-alert.success {
+  background: rgba(37, 211, 102, 0.18);
+  border: 1px solid #25D366;
+  color: #FFFFFF;
+}
+
+.form-status-alert.error {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid #EF4444;
+  color: #FFFFFF;
 }
 
 .form-privacy-note {
@@ -1163,6 +1246,17 @@ button, input, select, textarea {
   border: 2px solid var(--accent-gold);
   background: linear-gradient(180deg, #FFFFFF 0%, #FFFDF5 100%);
   box-shadow: 0 12px 35px -6px rgba(255, 200, 20, 0.22);
+  animation: featuredGlowPulse 2.8s ease-in-out infinite;
+  transform: translateZ(0);
+}
+
+@keyframes featuredGlowPulse {
+  0%, 100% {
+    box-shadow: 0 12px 35px -6px rgba(255, 200, 20, 0.22);
+  }
+  50% {
+    box-shadow: 0 16px 42px -4px rgba(255, 200, 20, 0.45);
+  }
 }
 
 .combo-card.combo-featured:hover {
@@ -1383,6 +1477,8 @@ button, input, select, textarea {
   gap: 1.5rem;
   width: max-content;
   animation: marqueeLoop 38s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .marquee-container:hover .marquee-track {
@@ -1993,13 +2089,9 @@ button, input, select, textarea {
     gap: 0.35rem;
   }
 
-  .form-buttons-row {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-  }
-
-  .btn-form-whatsapp, .btn-form-email {
-    width: 100%;
+  .btn-form-submit {
+    font-size: 0.88rem;
+    padding: 0.8rem;
   }
 
   .lead-form-card {
