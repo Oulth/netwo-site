@@ -599,7 +599,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 11. ENVIO ASSÍNCRONO DO FORMULÁRIO (GOOGLE APPS SCRIPT WEBHOOK)
   // =========================================================================
   // URL do Web App do Google Apps Script (gerada no Google Drive)
-  const GOOGLE_SCRIPT_WEBHOOK_URL = ""; 
+  const GOOGLE_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzNTQBlkOgU86qdF-J78teod0kbd5JsWwV6WOgy4HvqLX6HDagAZ8ZgNCZoEIi-Oivs/exec"; 
   const WHATSAPP_NUMBER = '5585987978486';
 
   const leadForm = document.getElementById('leadForm');
