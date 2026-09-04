@@ -15,10 +15,10 @@
   --bg-dark-root: #04060C;
   --bg-hero: #050811;
 
-  /* Top Nav: Azul Dominante com Glassmorphism Fosco */
-  --nav-glass-bg: rgba(22, 58, 102, 0.72);
-  --nav-glass-scrolled: rgba(14, 40, 76, 0.95);
-  --nav-glass-border: rgba(55, 121, 191, 0.5);
+  /* Top Nav: Dark Glass Translúcido sobre a Máscara Degradê do Banner */
+  --nav-glass-bg: rgba(0, 0, 0, 0.45);
+  --nav-glass-scrolled: rgba(5, 8, 17, 0.95);
+  --nav-glass-border: rgba(255, 255, 255, 0.18);
 
   /* Azul Netwo Vibrante Oficial */
   --bg-blue-netwo: #3779BF;
@@ -129,7 +129,7 @@ button, input, select, textarea {
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--nav-glass-border);
   border-radius: var(--radius-full);
-  box-shadow: 0 8px 32px rgba(10, 30, 60, 0.45), 0 0 15px rgba(55, 121, 191, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
   transition: top 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   pointer-events: auto;
 }
@@ -137,8 +137,8 @@ button, input, select, textarea {
 .site-header.scrolled {
   top: 0.5rem;
   background: var(--nav-glass-scrolled);
-  border-color: rgba(55, 121, 191, 0.65);
-  box-shadow: 0 12px 35px rgba(5, 15, 35, 0.75), 0 0 20px rgba(55, 121, 191, 0.35);
+  border-color: rgba(255, 255, 255, 0.24);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75);
 }
 
 .nav-container {
@@ -174,13 +174,14 @@ button, input, select, textarea {
 }
 
 .nav-link {
-  color: var(--text-blue-200);
+  color: #FFFFFF;
   font-weight: 600;
   font-size: 0.92rem;
   transition: var(--transition);
   position: relative;
   padding: 4px 0;
   letter-spacing: 0.2px;
+  opacity: 0.92;
 }
 
 .nav-link::after {
@@ -190,13 +191,14 @@ button, input, select, textarea {
   left: 0;
   width: 0%;
   height: 2px;
-  background: var(--accent-gold);
+  background: #FFFFFF;
   transition: var(--transition);
 }
 
 .nav-link:hover,
 .nav-link.active {
-  color: var(--accent-gold);
+  color: #FFFFFF;
+  opacity: 1;
 }
 
 .nav-link:hover::after,
@@ -360,6 +362,22 @@ button, input, select, textarea {
                 transparent 30%, 
                 rgba(5, 8, 17, 0.25) 65%, 
                 rgba(5, 8, 17, 0.95) 100%);
+  pointer-events: none;
+}
+
+/* Máscara preta com degradê no topo do banner para destacar a barra de navegação */
+.hero-top-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 250px;
+  background: linear-gradient(to bottom, 
+    #000000 0%, 
+    rgba(0, 0, 0, 0.88) 35%, 
+    rgba(0, 0, 0, 0.45) 70%, 
+    transparent 100%);
+  z-index: 3;
   pointer-events: none;
 }
 
@@ -1890,6 +1908,10 @@ button, input, select, textarea {
 
   .logo-img {
     height: 30px;
+  }
+
+  .hero-top-mask {
+    height: 170px;
   }
 
   .nav-links {
