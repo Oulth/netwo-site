@@ -72,9 +72,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const updateHeaderAndScrollSpy = () => {
     const scrollPos = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
 
-    // Efeito Glassmorphic condensado ao rolar
+    const bloco1 = document.getElementById('bloco-1');
+    // Transiciona para o menu normal ao se aproximar do primeiro bloco
+    const switchThreshold = bloco1 ? Math.max(100, bloco1.offsetTop - 120) : (window.innerHeight * 0.7);
+
+    // Efeito: no banner mantém máscara preta e logo branca; ao rolar para o primeiro bloco, volta ao normal
     if (header) {
-      if (scrollPos > 20) {
+      if (scrollPos >= switchThreshold) {
         header.classList.add('scrolled');
       } else {
         header.classList.remove('scrolled');

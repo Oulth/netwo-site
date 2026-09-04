@@ -17,8 +17,9 @@
 
   /* Top Nav: Dark Glass Translúcido sobre a Máscara Degradê do Banner */
   --nav-glass-bg: rgba(0, 0, 0, 0.45);
-  --nav-glass-scrolled: rgba(5, 8, 17, 0.95);
+  --nav-glass-scrolled: rgba(14, 40, 76, 0.95);
   --nav-glass-border: rgba(255, 255, 255, 0.18);
+  --nav-glass-border-scrolled: rgba(55, 121, 191, 0.65);
 
   /* Azul Netwo Vibrante Oficial */
   --bg-blue-netwo: #3779BF;
@@ -137,8 +138,8 @@ button, input, select, textarea {
 .site-header.scrolled {
   top: 0.5rem;
   background: var(--nav-glass-scrolled);
-  border-color: rgba(255, 255, 255, 0.24);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75);
+  border-color: var(--nav-glass-border-scrolled);
+  box-shadow: 0 12px 35px rgba(5, 15, 35, 0.75), 0 0 20px rgba(55, 121, 191, 0.35);
 }
 
 .nav-container {
@@ -149,9 +150,11 @@ button, input, select, textarea {
 }
 
 .logo-wrapper {
+  position: relative;
   display: flex;
   align-items: center;
   transition: var(--transition);
+  height: 38px;
 }
 
 .logo-wrapper:hover {
@@ -164,6 +167,30 @@ button, input, select, textarea {
   object-fit: contain;
   display: block;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35));
+  transition: opacity 0.35s ease, transform 0.3s ease;
+}
+
+.logo-img-white {
+  opacity: 1;
+}
+
+.logo-img-color {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Ao rolar para o primeiro bloco (scrolled): logo volta para a colorida */
+.site-header.scrolled .logo-img-white {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.site-header.scrolled .logo-img-color {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .nav-links {
@@ -173,11 +200,12 @@ button, input, select, textarea {
   list-style: none;
 }
 
+/* No banner (estado inicial / topo): links brancos */
 .nav-link {
   color: #FFFFFF;
   font-weight: 600;
   font-size: 0.92rem;
-  transition: var(--transition);
+  transition: color 0.3s ease, opacity 0.3s ease;
   position: relative;
   padding: 4px 0;
   letter-spacing: 0.2px;
@@ -192,7 +220,7 @@ button, input, select, textarea {
   width: 0%;
   height: 2px;
   background: #FFFFFF;
-  transition: var(--transition);
+  transition: width 0.3s ease, background-color 0.3s ease;
 }
 
 .nav-link:hover,
@@ -204,6 +232,21 @@ button, input, select, textarea {
 .nav-link:hover::after,
 .nav-link.active::after {
   width: 100%;
+}
+
+/* Ao rolar para o primeiro bloco (scrolled): volta ao estilo original azul/dourado */
+.site-header.scrolled .nav-link {
+  color: var(--text-blue-200);
+  opacity: 1;
+}
+
+.site-header.scrolled .nav-link::after {
+  background: var(--accent-gold);
+}
+
+.site-header.scrolled .nav-link:hover,
+.site-header.scrolled .nav-link.active {
+  color: var(--accent-gold);
 }
 
 /* Botão Hambúrguer Mobile (Oculto no Desktop) */
@@ -1904,6 +1947,10 @@ button, input, select, textarea {
     width: 96%;
     top: 0.45rem;
     padding: 0.45rem 0.95rem;
+  }
+
+  .logo-wrapper {
+    height: 30px;
   }
 
   .logo-img {
