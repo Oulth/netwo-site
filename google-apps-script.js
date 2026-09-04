@@ -15,6 +15,9 @@
 // E-mail de destino oficial da agência (onde os leads devem chegar)
 const DESTINATION_EMAIL = "agencianetwo@gmail.com";
 
+// ID da planilha oficial do Google Sheets onde os leads serão gravados
+const SPREADSHEET_ID = "12XSG0Nplw-9OWmxqpUEOU5Pq2kDux-cf0mQ4V21nhzg";
+
 /**
  * Ponto de entrada para requisições POST
  */
@@ -70,10 +73,15 @@ function doPost(e) {
  */
 function registrarNaPlanilha(dataHora, nome, whatsapp, email, servicos, mensagem) {
   try {
-    const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+    let spreadsheet;
+    if (typeof SPREADSHEET_ID !== 'undefined' && SPREADSHEET_ID.trim() !== '') {
+      spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID.trim());
+    } else {
+      spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+    }
     if (!spreadsheet) return;
 
-    const sheet = spreadsheet.getActiveSheet();
+    const sheet = spreadsheet.getSheets()[0] || spreadsheet.getActiveSheet();
 
     // Cria cabeçalhos automaticamente se a planilha estiver vazia
     if (sheet.getLastRow() === 0) {
