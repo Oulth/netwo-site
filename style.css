@@ -200,48 +200,29 @@ button, input, select, textarea {
   list-style: none;
 }
 
-/* No banner (estado inicial / topo): links brancos */
+/* No banner (estado inicial / topo): links brancos sem sublinhado, hover amarelo */
 .nav-link {
   color: #FFFFFF;
   font-weight: 600;
   font-size: 0.92rem;
-  transition: color 0.3s ease, opacity 0.3s ease;
+  transition: color 0.25s ease, opacity 0.25s ease;
   position: relative;
   padding: 4px 0;
   letter-spacing: 0.2px;
-  opacity: 0.92;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0%;
-  height: 2px;
-  background: #FFFFFF;
-  transition: width 0.3s ease, background-color 0.3s ease;
+  text-decoration: none;
+  opacity: 0.95;
 }
 
 .nav-link:hover,
 .nav-link.active {
-  color: #FFFFFF;
+  color: var(--accent-gold);
   opacity: 1;
 }
 
-.nav-link:hover::after,
-.nav-link.active::after {
-  width: 100%;
-}
-
-/* Ao rolar para o primeiro bloco (scrolled): volta ao estilo original azul/dourado */
+/* Ao rolar para o primeiro bloco (scrolled): volta ao tom azul clássico com hover amarelo */
 .site-header.scrolled .nav-link {
   color: var(--text-blue-200);
   opacity: 1;
-}
-
-.site-header.scrolled .nav-link::after {
-  background: var(--accent-gold);
 }
 
 .site-header.scrolled .nav-link:hover,

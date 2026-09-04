@@ -37,8 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 'hero', link: document.querySelector('.nav-links a[href="#hero"]') },
     { id: 'bloco-1', link: document.querySelector('.nav-links a[href="#bloco-1"]') },
     { id: 'bloco-2', link: document.querySelector('.nav-links a[href="#bloco-2"]') },
-    { id: 'bloco-3', link: document.querySelector('.nav-links a[href="#bloco-3"]') },
-    { id: 'diagnostico', link: document.querySelector('.nav-links a[href="#diagnostico"]') }
+    { id: 'bloco-3', link: document.querySelector('.nav-links a[href="#bloco-3"]') }
   ];
 
   // Menu Mobile Toggle
