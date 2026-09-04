@@ -1,6 +1,6 @@
 # Guia Passo a Passo: Ativar o Envio de Leads no Google Sheets e Gmail
 
-Este guia ensina como conectar o formulário do site ao seu Google Sheets e ao seu Gmail (`tecnologianetwo@gmail.com`) em menos de 2 minutos.
+Este guia ensina como hospedar o script na conta **`tecnologianetwo@gmail.com`** para que todos os leads preenchidos no site cheguem diretamente na caixa de entrada da agência: **`agencianetwo@gmail.com`**.
 
 ---
 
@@ -62,6 +62,6 @@ Este guia ensina como conectar o formulário do site ao seu Google Sheets e ao s
 ### Pronto! 🎉
 A partir de agora:
 1. Toda vez que alguém preencher o formulário no site e clicar em **"Conversar com a equipe da Netwo"**:
-   * Uma linha será adicionada automaticamente na sua planilha com data, hora, nome, WhatsApp, e-mail e serviço.
-   * Um e-mail formatado chegará no **`tecnologianetwo@gmail.com`** com link direto para chamar a pessoa no WhatsApp com 1 clique.
+   * Uma linha será registrada na planilha criada na sua conta **`tecnologianetwo@gmail.com`** com todos os dados.
+   * Um e-mail formatado chegará diretamente na caixa de entrada oficial da agência: **`agencianetwo@gmail.com`**!
    * Ao clicar em **"Responder"** no Gmail, o campo de destinatário já será preenchido automaticamente com o e-mail do cliente!
