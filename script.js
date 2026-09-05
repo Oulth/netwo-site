@@ -687,8 +687,43 @@ document.addEventListener('DOMContentLoaded', () => {
           body: JSON.stringify(payload)
         });
 
-        // Sucesso
-        showFormStatus('success', '✓ <strong>Solicitação enviada com sucesso!</strong> Nossa equipe analisará seu negócio e entrará em contato em breve.');
+        // Sucesso: Animação GSAP substituindo o formulário por completo
+        const formHeader = document.querySelector('.lead-form-card .form-header');
+        const formSuccessCard = document.getElementById('formSuccessCard');
+
+        if (hasGsap && formSuccessCard && formHeader) {
+          gsap.timeline()
+            .to([formHeader, leadForm], {
+              opacity: 0,
+              y: -15,
+              duration: 0.35,
+              ease: 'power2.in',
+              onComplete: () => {
+                formHeader.style.display = 'none';
+                leadForm.style.display = 'none';
+                formSuccessCard.style.display = 'flex';
+              }
+            })
+            .fromTo(formSuccessCard,
+              { opacity: 0, scale: 0.94, y: 15 },
+              { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'power3.out' }
+            )
+            .fromTo('.success-icon-wrapper',
+              { scale: 0, rotation: -45 },
+              { scale: 1, rotation: 0, duration: 0.65, ease: 'back.out(2)' },
+              '-=0.3'
+            )
+            .fromTo(['.success-card-title', '.success-card-desc', '.btn-reset-form'],
+              { opacity: 0, y: 12 },
+              { opacity: 1, y: 0, stagger: 0.1, duration: 0.45, ease: 'power2.out' },
+              '-=0.2'
+            );
+        } else if (formSuccessCard && formHeader) {
+          formHeader.style.display = 'none';
+          leadForm.style.display = 'none';
+          formSuccessCard.style.display = 'flex';
+        }
+
         leadForm.reset();
 
         // Restaura seleção padrão das tags de interesse
@@ -718,6 +753,40 @@ document.addEventListener('DOMContentLoaded', () => {
           const btnText = btnSubmitLead.querySelector('.btn-text');
           if (btnText) btnText.textContent = 'Conversar com a equipe da Netwo';
         }
+      }
+    });
+  }
+
+  // Botão para reabrir o formulário após envio
+  const btnResetForm = document.getElementById('btnResetForm');
+  if (btnResetForm) {
+    btnResetForm.addEventListener('click', () => {
+      const formHeader = document.querySelector('.lead-form-card .form-header');
+      const formSuccessCard = document.getElementById('formSuccessCard');
+
+      if (hasGsap && formSuccessCard && formHeader && leadForm) {
+        gsap.timeline()
+          .to(formSuccessCard, {
+            opacity: 0,
+            scale: 0.95,
+            duration: 0.3,
+            ease: 'power2.in',
+            onComplete: () => {
+              formSuccessCard.style.display = 'none';
+              formHeader.style.display = 'block';
+              leadForm.style.display = 'block';
+              hideFormStatus();
+            }
+          })
+          .fromTo([formHeader, leadForm],
+            { opacity: 0, y: 15 },
+            { opacity: 1, y: 0, duration: 0.45, stagger: 0.08, ease: 'power2.out' }
+          );
+      } else if (formSuccessCard && formHeader && leadForm) {
+        formSuccessCard.style.display = 'none';
+        formHeader.style.display = 'block';
+        leadForm.style.display = 'block';
+        hideFormStatus();
       }
     });
   }

@@ -1050,6 +1050,70 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
+   TELA DE SUCESSO COMPLETA DO FORMULÁRIO (GSAP ANIMATION)
+   ========================================================================== */
+.form-success-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3.5rem 1.5rem;
+  min-height: 420px;
+  width: 100%;
+}
+
+.success-icon-wrapper {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  background: rgba(37, 211, 102, 0.16);
+  border: 2px solid #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 35px rgba(37, 211, 102, 0.45);
+}
+
+.success-card-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 0.75rem;
+  line-height: 1.35;
+  letter-spacing: -0.3px;
+}
+
+.success-card-desc {
+  font-size: 0.92rem;
+  color: var(--text-blue-100);
+  max-width: 380px;
+  line-height: 1.55;
+  margin-bottom: 2rem;
+  opacity: 0.92;
+}
+
+.btn-reset-form {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 0.82rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-reset-form:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+/* ==========================================================================
    BLOCO 2: COMBOS ESTRATÉGICOS (FUNDO BRANCO COMPACTO)
    ========================================================================== */
 .combos-section {
