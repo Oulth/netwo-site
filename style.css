@@ -1,12 +1,13 @@
 /* ==========================================================================
    NETWO COMUNICAÇÃO - PREMIUM RESPONSIVE DESIGN SYSTEM
    Tipografia: 'Inter', sans-serif
-   Paleta:
-   - Hero / Dark: #050811 (100% Limpo na Primeira Dobra)
-   - Top Nav: Azul Dominante Transparente Glass (rgba(22, 58, 102, 0.72))
-   - Bloco 1 (Soluções + Form): Azul Netwo Vibrante & Puro (#3779BF)
-   - Bloco 2 (Combos Estratégicos): Branco / Clean (#FFFFFF & #F8FAFC)
-   - Dourado / Amarelo: #FFC814 / #F5B811
+   Paleta Oficial Netwo (CORES.pdf):
+   - Azul Netwo Principal: #3779BF
+   - Azul Netwo Vibrante: #327DC8
+   - Amarelo Netwo Principal: #FFC814
+   - Amarelo Secundário / Ouro: #F0B40A
+   - Off-White / Fundo Claro: #F5F5F5
+   - Hero / Dark: #050811
    - WhatsApp: #25D366
    ========================================================================== */
 
@@ -15,24 +16,24 @@
   --bg-dark-root: #04060C;
   --bg-hero: #050811;
 
-  /* Top Nav: Dark Glass Translúcido sobre a Máscara Degradê do Banner */
-  --nav-glass-bg: rgba(0, 0, 0, 0.45);
-  --nav-glass-scrolled: rgba(14, 40, 76, 0.95);
+  /* Top Nav: Vidro Preto no Início e Vidro Fumê Cinza com Toque Azul Netwo no Scroll */
+  --nav-glass-bg: rgba(0, 0, 0, 0.48);
+  --nav-glass-scrolled: rgba(24, 52, 92, 0.68);
   --nav-glass-border: rgba(255, 255, 255, 0.18);
-  --nav-glass-border-scrolled: rgba(55, 121, 191, 0.65);
+  --nav-glass-border-scrolled: rgba(55, 121, 191, 0.55);
 
-  /* Azul Netwo Vibrante Oficial */
+  /* Azul Netwo Oficial (CORES.pdf) */
   --bg-blue-netwo: #3779BF;
-  --bg-blue-vibrant: #3172B8;
-  --bg-blue-soft: #2764A8;
+  --bg-blue-vibrant: #327DC8;
+  --bg-blue-soft: #327DC8;
 
   --bg-white: #FFFFFF;
-  --bg-light-slate: #F8FAFC;
+  --bg-light-slate: #F5F5F5;
 
-  /* Destaques Dourados & Verdes */
+  /* Destaques Dourados & Amarelos Netwo Oficial (CORES.pdf) */
   --accent-gold: #FFC814;
   --accent-gold-light: #FFE27A;
-  --accent-gold-dark: #E5AC00;
+  --accent-gold-dark: #F0B40A;
   --gold-glow: rgba(255, 200, 20, 0.45);
   --gold-glow-intense: rgba(255, 200, 20, 0.85);
 
@@ -141,7 +142,7 @@ button, input, select, textarea {
   top: 0.5rem;
   background: var(--nav-glass-scrolled);
   border-color: var(--nav-glass-border-scrolled);
-  box-shadow: 0 12px 35px rgba(5, 15, 35, 0.75), 0 0 20px rgba(55, 121, 191, 0.35);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(55, 121, 191, 0.25);
 }
 
 .nav-container {
@@ -184,7 +185,7 @@ button, input, select, textarea {
   pointer-events: none;
 }
 
-/* Ao rolar para o primeiro bloco (scrolled): logo volta para a colorida */
+/* Ao rolar (scrolled): ativa o logotipo oficial colorido (logotipo_PRINCIPAL.png) */
 .site-header.scrolled .logo-img-white {
   opacity: 0;
   pointer-events: none;
@@ -202,7 +203,7 @@ button, input, select, textarea {
   list-style: none;
 }
 
-/* No banner (estado inicial / topo): links brancos sem sublinhado, hover amarelo */
+/* Links brancos com hover amarelo oficial (#FFC814) */
 .nav-link {
   color: #FFFFFF;
   font-weight: 600;
@@ -221,15 +222,16 @@ button, input, select, textarea {
   opacity: 1;
 }
 
-/* Ao rolar para o primeiro bloco (scrolled): volta ao tom azul clássico com hover amarelo */
+/* Ao rolar (scrolled): mantém links em branco com hover em amarelo vibrante */
 .site-header.scrolled .nav-link {
-  color: var(--text-blue-200);
-  opacity: 1;
+  color: #FFFFFF;
+  opacity: 0.95;
 }
 
 .site-header.scrolled .nav-link:hover,
 .site-header.scrolled .nav-link.active {
   color: var(--accent-gold);
+  opacity: 1;
 }
 
 /* Botão Hambúrguer Mobile (Oculto no Desktop) */
@@ -278,11 +280,11 @@ button, input, select, textarea {
   top: calc(100% + 10px);
   left: 0;
   right: 0;
-  background: rgba(14, 40, 76, 0.96);
+  background: rgba(20, 44, 78, 0.94);
   border: 1px solid rgba(55, 121, 191, 0.55);
   border-radius: 20px;
   padding: 1.3rem 1.2rem;
-  box-shadow: 0 16px 40px rgba(5, 15, 35, 0.8), 0 0 25px rgba(55, 121, 191, 0.25);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), 0 0 25px rgba(55, 121, 191, 0.3);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
   opacity: 0;
@@ -1181,7 +1183,7 @@ button, input, select, textarea {
 
 /* Metodologia two by two da Netwo (4 Etapas) */
 .methodology-wrapper {
-  background: #F8FAFC;
+  background: #F5F5F5;
   border: 1px solid #E2E8F0;
   border-radius: var(--radius-md);
   padding: 1.6rem 1.8rem;
@@ -1361,8 +1363,9 @@ button, input, select, textarea {
 }
 
 .combo-badge-gold {
-  color: #946E00;
-  background: #FFF7D6;
+  color: var(--accent-gold-dark);
+  background: #FFFDF5;
+  border: 1px solid rgba(240, 180, 10, 0.35);
 }
 
 .combo-name {
@@ -1403,7 +1406,7 @@ button, input, select, textarea {
 }
 
 .combo-featured .combo-feature-item svg {
-  color: #D49C00;
+  color: var(--accent-gold-dark);
 }
 
 .combo-feature-item strong {
@@ -1421,7 +1424,7 @@ button, input, select, textarea {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  background: #F1F5F9;
+  background: #F5F5F5;
   color: var(--text-dark-title);
   border: 1px solid #CBD5E1;
   font-weight: 700;
@@ -1461,8 +1464,8 @@ button, input, select, textarea {
 .cases-section {
   background-color: #FFFFFF;
   border-top: 1px solid #E2E8F0;
-  border-bottom: 1px solid #E2E8F0;
-  padding: 5.5rem 1.25rem;
+  border-bottom: none;
+  padding: 5.5rem 1.25rem 3.5rem;
   position: relative;
   overflow: hidden;
 }
@@ -1528,7 +1531,7 @@ button, input, select, textarea {
   overflow: hidden;
   padding: 1.2rem 0;
   margin-bottom: 3.5rem;
-  background: #F8FAFC;
+  background: #F5F5F5;
   border: 1px solid #E2E8F0;
   border-radius: var(--radius-md);
   box-shadow: 0 4px 18px -4px rgba(0, 0, 0, 0.04);
@@ -1654,7 +1657,7 @@ button, input, select, textarea {
   width: 100%;
   height: 220px;
   overflow: hidden;
-  background: #F1F5F9;
+  background: #F5F5F5;
 }
 
 .case-thumb-img {
@@ -1685,9 +1688,9 @@ button, input, select, textarea {
 }
 
 .case-badge-gold {
-  background: #FFF7D6;
-  border-color: #FDE047;
-  color: #854D0E;
+  background: #FFFDF5;
+  border-color: rgba(240, 180, 10, 0.4);
+  color: var(--accent-gold-dark);
 }
 
 .case-badge-pink {
@@ -1764,24 +1767,32 @@ button, input, select, textarea {
    FOOTER: COR PADRÃO AZUL NETWO (PREMIUM & RESPONSIVO)
    ========================================================================== */
 .site-footer {
-  background: linear-gradient(180deg, #1A4B82 0%, #123762 55%, #0A2240 100%);
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 4.5rem 1.25rem 2rem;
+  background: linear-gradient(180deg, #327DC8 0%, #2566A8 45%, #16467A 100%);
+  border-top: none;
+  padding: 4.25rem 1.25rem 2rem;
   color: var(--text-blue-100);
   position: relative;
   overflow: hidden;
 }
 
 .site-footer::before {
-  content: '';
+  display: none;
+}
+
+/* Transição Suave em Degradê no Topo do Rodapé (ajustada mais para cima) */
+.footer-top-gradient {
   position: absolute;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(900px, 90%);
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, var(--accent-gold) 50%, transparent 100%);
-  opacity: 0.6;
+  left: 0;
+  width: 100%;
+  height: 65px;
+  background: linear-gradient(180deg, 
+    var(--bg-white) 0%, 
+    rgba(255, 255, 255, 0.55) 20%, 
+    rgba(255, 255, 255, 0.12) 55%, 
+    transparent 100%);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .footer-container {
