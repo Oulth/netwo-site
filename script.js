@@ -222,27 +222,31 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // 3.2 Timeline de Entrada dos Textos e Botões do Hero
+    // 3.2 Timeline de Entrada dos Textos e Botões do Hero (Cinematic Reveal)
     const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
     heroTl
       .from('.hero-slogan', {
         y: 45,
         opacity: 0,
-        duration: 1.2,
+        filter: 'blur(12px)',
+        duration: 1.3,
         ease: 'power4.out',
-        delay: 0.25
+        delay: 0.2
       })
       .from('.hero-subtitle', {
         y: 25,
         opacity: 0,
-        duration: 0.9
-      }, '-=0.8')
+        filter: 'blur(8px)',
+        duration: 1.0
+      }, '-=0.85')
       .from('.scroll-indicator', {
-        y: 15,
+        y: 20,
         opacity: 0,
+        scale: 0.8,
         duration: 0.8,
-        clearProps: 'opacity,transform'
+        ease: 'back.out(1.8)',
+        clearProps: 'opacity,transform,filter'
       }, '-=0.4');
 
     // 3.3 Efeito Parallax no Scroll do Hero (com ScrollTrigger)
@@ -295,19 +299,19 @@ document.addEventListener('DOMContentLoaded', () => {
       ease: 'power3.out'
     });
 
-    // 4.2 Efeito Cascata (Stagger) nos 4 Cards de Serviços
+    // 4.2 Efeito Suave nos 4 Cards de Serviços (Fade-in sutil e estável, sem salto vertical)
     const serviceCards = gsap.utils.toArray('.service-card');
     if (serviceCards.length > 0) {
       gsap.from(serviceCards, {
         scrollTrigger: {
           trigger: '.services-grid',
-          start: 'top 85%'
+          start: 'top 90%'
         },
-        y: 40,
         opacity: 0,
-        stagger: 0.12,
-        duration: 0.85,
-        ease: 'power3.out',
+        scale: 0.98,
+        stagger: 0.08,
+        duration: 0.55,
+        ease: 'power2.out',
         clearProps: 'opacity,transform'
       });
     }
@@ -363,19 +367,19 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // 5.2 Efeito Cascata (Stagger) nos 3 Cards de Combos
+    // 5.2 Entrada Suave nos 3 Cards de Combos (sem pulo vertical)
     const comboCards = gsap.utils.toArray('.combo-card');
     if (comboCards.length > 0) {
       gsap.from(comboCards, {
         scrollTrigger: {
           trigger: '.combos-grid',
-          start: 'top 85%'
+          start: 'top 90%'
         },
-        y: 45,
         opacity: 0,
-        stagger: 0.15,
-        duration: 0.9,
-        ease: 'power3.out',
+        scale: 0.98,
+        stagger: 0.08,
+        duration: 0.55,
+        ease: 'power2.out',
         clearProps: 'opacity,transform'
       });
     }
@@ -401,65 +405,96 @@ document.addEventListener('DOMContentLoaded', () => {
       gsap.from(caseCards, {
         scrollTrigger: {
           trigger: '.cases-grid',
-          start: 'top 85%'
+          start: 'top 90%'
         },
-        y: 45,
         opacity: 0,
-        stagger: 0.15,
-        duration: 0.9,
-        ease: 'power3.out',
+        scale: 0.98,
+        stagger: 0.08,
+        duration: 0.55,
+        ease: 'power2.out',
         clearProps: 'opacity,transform'
       });
     }
   }
 
   // =========================================================================
-  // 6. EFEITO 3D TILT NOS CARDS (OTIMIZADO COM RAF & FORCE3D)
+  // 6. EFEITO 3D TILT E SPOTLIGHT MAGNÉTICO NOS CARDS
   // =========================================================================
   const isPointerFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if (isPointerFine && hasGsap) {
+  if (isPointerFine) {
     const tiltCards = document.querySelectorAll('.service-card, .combo-card, .case-card');
     tiltCards.forEach(card => {
       let tiltRaf = null;
 
       card.addEventListener('mousemove', (e) => {
-        if (tiltRaf) cancelAnimationFrame(tiltRaf);
-        tiltRaf = requestAnimationFrame(() => {
-          const rect = card.getBoundingClientRect();
-          const cardX = e.clientX - rect.left;
-          const cardY = e.clientY - rect.top;
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
+        const rect = card.getBoundingClientRect();
+        const cardX = e.clientX - rect.left;
+        const cardY = e.clientY - rect.top;
 
-          const rotateX = ((cardY - centerY) / centerY) * -5;
-          const rotateY = ((cardX - centerX) / centerX) * 5;
+        // Atualiza posição da luz Spotlight
+        if (card.classList.contains('service-card')) {
+          card.style.setProperty('--mouse-x', `${cardX}px`);
+          card.style.setProperty('--mouse-y', `${cardY}px`);
+          card.style.setProperty('--spotlight-opacity', '1');
+        }
 
-          gsap.to(card, {
-            rotationX: rotateX,
-            rotationY: rotateY,
-            transformPerspective: 800,
-            scale: 1.015,
-            duration: 0.35,
-            force3D: true,
-            ease: 'power1.out',
-            overwrite: 'auto'
+        if (hasGsap) {
+          if (tiltRaf) cancelAnimationFrame(tiltRaf);
+          tiltRaf = requestAnimationFrame(() => {
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = ((cardY - centerY) / centerY) * -4.5;
+            const rotateY = ((cardX - centerX) / centerX) * 4.5;
+
+            gsap.to(card, {
+              rotationX: rotateX,
+              rotationY: rotateY,
+              transformPerspective: 800,
+              scale: 1.012,
+              duration: 0.35,
+              force3D: true,
+              ease: 'power1.out',
+              overwrite: 'auto'
+            });
           });
-        });
+        }
       }, { passive: true });
 
       card.addEventListener('mouseleave', () => {
-        if (tiltRaf) cancelAnimationFrame(tiltRaf);
-        gsap.to(card, {
-          rotationX: 0,
-          rotationY: 0,
-          scale: 1,
-          duration: 0.6,
-          force3D: true,
-          ease: 'power2.out',
-          overwrite: 'auto'
-        });
+        if (card.classList.contains('service-card')) {
+          card.style.setProperty('--spotlight-opacity', '0');
+        }
+        if (hasGsap) {
+          if (tiltRaf) cancelAnimationFrame(tiltRaf);
+          gsap.to(card, {
+            rotationX: 0,
+            rotationY: 0,
+            scale: 1,
+            duration: 0.6,
+            force3D: true,
+            ease: 'power2.out',
+            overwrite: 'auto'
+          });
+        }
       }, { passive: true });
     });
+
+    // 2. Rastreamento da Luz Ambiente no fundo do Bloco 1
+    const bloco1 = document.getElementById('bloco-1');
+    if (bloco1) {
+      let bloco1Raf = null;
+      bloco1.addEventListener('mousemove', (e) => {
+        if (bloco1Raf) cancelAnimationFrame(bloco1Raf);
+        bloco1Raf = requestAnimationFrame(() => {
+          const rect = bloco1.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          bloco1.style.setProperty('--section-glow-x', `${x}px`);
+          bloco1.style.setProperty('--section-glow-y', `${y}px`);
+        });
+      }, { passive: true });
+    }
   }
 
   // =========================================================================
